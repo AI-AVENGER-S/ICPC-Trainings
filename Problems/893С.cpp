@@ -14,6 +14,7 @@ int dfs(int u, int &min_cost, vector<bool> &visited, const vector<vector<int>> &
             dfs(v, min_cost, visited, graph, costs);
         }
     }
+    return 0;
 }
 
 
