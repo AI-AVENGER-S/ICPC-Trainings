@@ -21,6 +21,7 @@ struct SegTree {
     vector<ll> mx, lazy;
     vector<bool> has_lazy;
 
+    
     SegTree(vector<ll>& a) {
         n = a.size();
         mx.resize(4 * n);
@@ -59,7 +60,6 @@ struct SegTree {
         has_lazy[v] = false;
     }
 
-    // Присваиваем val всем элементам [ql, qr]
     void update(int v, int l, int r, int ql, int qr, ll val) {
         if (ql > r || qr < l) return;
 
@@ -78,7 +78,6 @@ struct SegTree {
         mx[v] = max(mx[v * 2], mx[v * 2 + 1]);
     }
 
-    // Максимум на [ql, qr]
     ll query(int v, int l, int r, int ql, int qr) {
         if (ql <= l && r <= qr) {
             return mx[v];
@@ -132,12 +131,10 @@ int main() {
         ll h;
         cin >> w >> h;
 
-        // Находим высоту, на которой приземлится коробка
         ll height = st.get_max(w - 1);
 
         cout << height << '\n';
 
-        // Обновляем высоты первых w ступенек
         st.set_prefix(w - 1, height + h);
     }
 
