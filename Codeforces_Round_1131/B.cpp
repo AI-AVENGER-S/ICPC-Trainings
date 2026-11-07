@@ -5,31 +5,40 @@
 #include <cmath>
 #include <set>
 #include <map>
+#include <unordered_map>
 #include <queue>
 #include <stack>
+#include <numeric>
 #include <iomanip>
 #include <cassert>
 #include <cstring>
 
+#define all(x) x.begin(), x.end()
+
 using namespace std;
 
-void solve() {
-    int r, s, p;
-    cin >> r >> s >> p;
+using ll = long long;
 
-    char c;
+int solve() {
+    int n;
+    cin >> n;
 
-    if (s >= p) {
-        c = 'R';
-    }
-    else if (p >= r) {
-        c = 'S';
-    }
-    else {
-        c = 'P';
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i){
+        cin >> a[i];
     }
 
-    cout << string(r + s + p, c) << '\n';
+    int ans = 0;
+    for (int i = 0; i < n; ++i){
+        int cur = 0;
+        for (int j = 0; j < n; ++j){
+            if (a[j] % a[i] == 0) ++cur;
+
+            ans = max(ans, cur);
+        }
+    }
+    cout << n - ans << '\n';
+    return 0;
 }
 
 int main() {
@@ -38,9 +47,8 @@ int main() {
 
     int t;
     cin >> t;
-    while (t--) {
+    while(t--){
         solve();
     }
-
     return 0;
 }

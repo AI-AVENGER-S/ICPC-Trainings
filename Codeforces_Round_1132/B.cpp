@@ -19,27 +19,45 @@ using namespace std;
 
 using ll = long long;
 
-int solve() {
-    int n;
-    cin >> n;
+const int MOD = 1e9 + 7;
 
-    vector<int> a(n);
-    for (int i = 0; i < n; ++i){
+void solve() {
+    int n, k;
+    cin >> n >> k;
+    vector<ll> a(n);
+    for (int i = 0; i < n; ++i) {
         cin >> a[i];
     }
 
-    int ans = 0;
-    for (int i = 0; i < n; ++i){
-        int cur = 0;
-        for (int j = 0; j < n; ++j){
-            if (a[j] % a[i] == 0) ++cur;
+    sort(all(a));
 
-            ans = max(ans, cur);
+    ll max_val = a[n - 1];
+    int c = 0;
+    for (int i = n - 1; i >= 0; --i) {
+        if (a[i] == max_val) {
+            c++;
+        } else {
+            break;
         }
     }
-    cout << n - ans << '\n';
-    return 0;
+
+    if (k < c) {
+        cout << "NO" << '\n';
+        return;
+    }
+
+    cout << "YES" << '\n';
+
+    for (int i = n - k; i < n; ++i) {
+        cout << a[i] << " ";
+    }
+
+    for (int i = n - k - 1; i >= 0; --i) {
+        cout << a[i] << " ";
+    }
+    cout << "\n";
 }
+
 
 int main() {
     ios_base::sync_with_stdio(false);
@@ -47,8 +65,10 @@ int main() {
 
     int t;
     cin >> t;
-    while(t--){
+
+    while (t--) {
         solve();
     }
+
     return 0;
 }

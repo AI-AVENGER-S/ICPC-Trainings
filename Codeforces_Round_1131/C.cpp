@@ -5,6 +5,7 @@
 #include <cmath>
 #include <set>
 #include <map>
+#include <unordered_map>
 #include <queue>
 #include <stack>
 #include <numeric>
@@ -18,39 +19,38 @@ using namespace std;
 
 using ll = long long;
 
-
-int solve() {
+void solve()
+{
     int n;
     cin >> n;
 
-    vector<int> a(n);
+    int k = 0;
+    for(int i = 1; i <= n; i++) k |= i;
 
-    ll sum = 0;
-    for (int i = 0; i < n; ++i) { 
-        cin >> a[i]; 
-        sum += a[i];
+    int m = 0;
+    vector<int> ans(n, 0);
+
+    for(int i = 1; i <= n; i++) m ^= i;
+
+    int d = 0;
+    while((k >> d) & 1) d++;
+
+    for (int i = d; i >= 1; i--) {
+        if (((m >> i) & 1) == 0) {
+            int x = (1 << (i - 1));
+
+            ans[x - 1] = 1;
+
+            m ^= x;
+            m ^= (x << 1);
+        }
     }
+        
+    for(int i = 0; i < n; i++)
+        cout << ans[i] << " ";
 
-    if (sum == n) {
-        cout << "-1" << '\n';
-        return 0;
-    }
-
-    int cnt_ones_in = 0;
-    for (int i = 1; i < n - 1; ++i) {
-        if (a[i] == 1) ++cnt_ones_in;
-    }
-
-    if (cnt_ones_in == n - 2) {
-        cout << sum - 1 - (n - 2) << '\n';
-        return 0;
-    }
-
-    cout << sum - 1 << '\n';
-    return 0;
+    cout << '\n';
 }
-
-
 
 int main() {
     ios_base::sync_with_stdio(false);
@@ -58,9 +58,8 @@ int main() {
 
     int t;
     cin >> t;
-    while (t--) {
+    while(t--){
         solve();
     }
-
     return 0;
 }

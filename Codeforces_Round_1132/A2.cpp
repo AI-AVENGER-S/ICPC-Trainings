@@ -19,37 +19,30 @@ using namespace std;
 
 using ll = long long;
 
-void solve()
-{
+const int MOD = 1e9 + 7;
+
+void solve() {
     int n;
     cin >> n;
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
 
-    int k = 0;
-    for(int i = 1; i <= n; i++) k |= i;
+    sort(all(a), greater<int>());
 
-    int m = 0;
-    vector<int> ans(n, 0);
+    ll sum_x = 0;
+    ll sum_y = 0;
 
-    for(int i = 1; i <= n; i++) m ^= i;
-
-    int d = 0;
-    while((k >> d) & 1) d++;
-
-    for (int i = d; i >= 1; i--) {
-        if (((m >> i) & 1) == 0) {
-            int x = (1 << (i - 1));
-
-            ans[x - 1] = 1;
-
-            m ^= x;
-            m ^= (x << 1);
+    for (int i = 0; i < n; ++i) {
+        ll val = 1LL << a[i];
+        if (sum_x <= sum_y) {
+            sum_x += val;
+        } else {
+            sum_y += val;
         }
     }
-        
-    for(int i = 0; i < n; i++)
-        cout << ans[i] << " ";
 
-    cout << '\n';
+    ll max_area = sum_x * sum_y;
+    cout << max_area << "\n";
 }
 
 int main() {
@@ -58,8 +51,10 @@ int main() {
 
     int t;
     cin >> t;
-    while(t--){
+
+    while (t--) {
         solve();
     }
+
     return 0;
 }

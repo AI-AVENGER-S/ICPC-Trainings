@@ -5,7 +5,6 @@
 #include <cmath>
 #include <set>
 #include <map>
-#include <unordered_map>
 #include <queue>
 #include <stack>
 #include <numeric>
@@ -19,25 +18,39 @@ using namespace std;
 
 using ll = long long;
 
+
 int solve() {
-    int l, r;
-    cin >> l >> r;
+    int n;
+    cin >> n;
 
-    if (l > 0 || r < 0) {
-        cout << r - l << "\n";
+    vector<int> a(n);
+
+    ll sum = 0;
+    for (int i = 0; i < n; ++i) { 
+        cin >> a[i]; 
+        sum += a[i];
+    }
+
+    if (sum == n) {
+        cout << "-1" << '\n';
         return 0;
     }
 
-    if (-l == r) {
-        cout << 0 << "\n";
+    int cnt_ones_in = 0;
+    for (int i = 1; i < n - 1; ++i) {
+        if (a[i] == 1) ++cnt_ones_in;
+    }
+
+    if (cnt_ones_in == n - 2) {
+        cout << sum - 1 - (n - 2) << '\n';
         return 0;
     }
 
-    int m = min(-l, r);
-    cout << r - l + 1 - 2 * m - 2 << "\n";
-
+    cout << sum - 1 << '\n';
     return 0;
 }
+
+
 
 int main() {
     ios_base::sync_with_stdio(false);
@@ -45,8 +58,9 @@ int main() {
 
     int t;
     cin >> t;
-    while(t--){
+    while (t--) {
         solve();
     }
+
     return 0;
 }
