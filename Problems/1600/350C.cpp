@@ -34,12 +34,31 @@ int main() {
         cin >> pairs[i].first >> pairs[i].second;
     }
 
-    sort(all(pairs), [](auto x, auto y){
-        return abs(x.first) + abs(x.second) < abs(y.first) + abs(y.second);
+    sort(all(pairs), [](auto a, auto b) {
+        return (ll)abs(a.first) + abs(a.second) < (ll)abs(b.first) + abs(b.second);
     });
-    
-    for (int i = 0; i < n; ++i){
-        
+
+    vector<string> ans;
+    ans.reserve(n * 6); 
+
+    for (int i = 0; i < n; ++i) {
+        int x = pairs[i].first;
+        int y = pairs[i].second;
+
+        if (x != 0) ans.push_back("1 " + to_string(abs(x)) + (x > 0 ? " R" : " L"));
+        if (y != 0) ans.push_back("1 " + to_string(abs(y)) + (y > 0 ? " U" : " D"));
+
+        ans.push_back("2");
+
+        if (x != 0) ans.push_back("1 " + to_string(abs(x)) + (x > 0 ? " L" : " R"));
+        if (y != 0) ans.push_back("1 " + to_string(abs(y)) + (y > 0 ? " D" : " U"));
+
+        ans.push_back("3");
+    }
+
+    cout << ans.size() << '\n';
+    for (const auto& el : ans) {
+        cout << el << '\n';
     }
 
     return 0;
